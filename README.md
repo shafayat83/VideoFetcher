@@ -133,7 +133,7 @@ start.bat
 ### Command Line Launch
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/videofetcher.git
+   git clone https://github.com/shafayat83/VideoFetcher.git
    cd videofetcher
    ```
 2. Install Python dependencies:
