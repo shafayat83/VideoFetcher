@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>VideoFetcher - Universal Social Media Video Downloader</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'><path d='M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z'/></svg>">
+
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="style.css?v=3.3">
+</head>
+
+<body>
+    <!-- Background Animated Glow Spheres -->
+    <div class="glow-bg-container">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                    </svg>
+                </div>
+                <span class="brand-text">Video<span class="highlight">Fetcher</span></span>
+                <span class="badge-pro">PRO v2.0</span>
+            </a>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="#downloader" class="nav-link active">Downloader</a>
+                <a href="#platforms" class="nav-link">Supported Platforms</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button id="historyBtn" class="nav-btn secondary-nav-btn" title="View Download History">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span>History</span>
+                </button>
+                <div class="status-indicator-pill" title="Backend Engine Status">
+                    <span class="pulsing-dot"></span>
+                    <span class="status-pill-text">Engine Online</span>
+                </div>
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container (Full Width) -->
+    <main class="main-wrapper">
+        <!-- Hero & Downloader Section -->
+        <section id="downloader" class="hero-section">
+            <div class="hero-header">
+                <div class="hero-pill animate-fade-in">
+                    <span class="sparkle">✨</span>
+                    <span>100% Free • Unlimited High-Speed Downloads • No Watermark</span>
+                </div>
+                <h1 class="hero-title animate-slide-up">
+                    Universal <span class="gradient-text">Social Media</span> Video Downloader
+                </h1>
+                <p class="hero-subtitle animate-slide-up delay-1">
+                    Paste any video link to automatically analyze and download in crisp 4K Ultra HD, 1080p, or
+                    high-fidelity 320kbps MP3 directly to your device.
+                </p>
+            </div>
+
+            <!-- Central Downloader Box -->
+            <div class="downloader-card animate-zoom-in">
+                <!-- Input Box -->
+                <div class="input-container">
+                    <div class="input-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </div>
+
+                    <input type="text" id="videoUrlInput" class="main-url-input"
+                        placeholder="Paste video link here (YouTube, Facebook, Instagram, TikTok, Twitter/X, Reddit...)"
+                        autocomplete="off" spellcheck="false">
+
+                    <div class="input-btn-group">
+                        <button id="clearBtn" class="icon-action-btn hidden" title="Clear input">✕</button>
+                        <button id="pasteBtn" class="paste-action-btn" title="Paste from clipboard">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2">
+                                </path>
+                                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                            </svg>
+                            <span class="paste-btn-text">Paste Link</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Auto-Analyze Progress Indicator -->
+                <div id="statusIndicator" class="auto-status hidden">
+                    <div class="mini-spinner"></div>
+                    <span id="statusText">Analyzing video stream and extracting available formats...</span>
+                </div>
+
+                <!-- Format Selection Grid -->
+                <div class="format-selection-area">
+                    <div class="area-header">
+                        <label class="area-label">Select Download Format:</label>
+                    </div>
+
+                    <div class="format-buttons-grid">
+                        <!-- MP4 Chip -->
+                        <button type="button" class="format-box active" data-format="mp4" id="chipMp4">
+                            <div class="format-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z" />
+                                </svg>
+                            </div>
+                            <div class="format-meta">
+                                <span class="format-name">MP4 Video</span>
+                                <span class="format-desc">Standard / HD Video</span>
+                            </div>
+                            <span class="active-check">✓</span>
+                        </button>
+
+                        <!-- MP3 Chip -->
+                        <button type="button" class="format-box" data-format="mp3" id="chipMp3">
+                            <div class="format-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+                                </svg>
+                            </div>
+                            <div class="format-meta">
+                                <span class="format-name">MP3 Audio</span>
+                                <span class="format-desc">Crystal Audio 320kbps</span>
+                            </div>
+                            <span class="active-check">✓</span>
+                        </button>
+
+                        <!-- 4K Ultra Chip -->
+                        <button type="button" class="format-box" data-format="4k" id="chip4k">
+                            <div class="format-badge-4k">4K</div>
+                            <div class="format-meta">
+                                <span class="format-name">4K Ultra HD</span>
+                                <span class="format-desc">Master Resolution</span>
+                            </div>
+                            <span class="active-check">✓</span>
+                        </button>
+                    </div>
+
+                    <!-- Quality / Resolution Dropdown -->
+                    <div id="qualitySelectorWrapper" class="quality-box">
+                        <div class="quality-label-row">
+                            <span class="quality-title">Resolution & Quality Stream:</span>
+                            <span id="detectedCountBadge" class="detected-badge">Auto Quality</span>
+                        </div>
+                        <select id="qualitySelect" class="quality-select-dropdown">
+                            <option value="best">1080p Full HD (Recommended)</option>
+                            <option value="720">720p HD</option>
+                            <option value="480">480p SD</option>
+                            <option value="360">360p Medium</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Video Preview Card Area -->
+                <div class="preview-area">
+                    <!-- Skeleton State -->
+                    <div id="skeletonCard" class="video-preview-card skeleton-active">
+                        <div class="preview-thumb-box skeleton-shimmer">
+                            <div class="play-button-mock">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="preview-details">
+                            <div class="skeleton-line line-lg"></div>
+                            <div class="skeleton-line line-md"></div>
+                            <div class="skeleton-line line-sm"></div>
+                        </div>
+                    </div>
+
+                    <!-- Active Video Details Card -->
+                    <div id="activeVideoCard" class="video-preview-card hidden">
+                        <div class="preview-thumb-box">
+                            <img id="videoThumb" src="" alt="Thumbnail" class="actual-thumb">
+                            <span id="videoDuration" class="duration-tag">00:00</span>
+                            <div class="play-glow-overlay">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="6 4 20 12 6 20 6 4"></polygon>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="preview-details">
+                            <div class="platform-indicator" id="platformTag">
+                                <span class="plat-circle"></span>
+                                <span id="platformName">YouTube</span>
+                            </div>
+
+                            <h3 class="video-title-heading" id="videoTitle">Video Title will be shown here...</h3>
+
+                            <div class="meta-row">
+                                <div class="meta-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    <span id="videoUploader">Channel / Creator</span>
+                                </div>
+                                <div class="meta-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    <span id="videoViews">0 views</span>
+                                </div>
+                                <div class="meta-item size-highlight">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg>
+                                    <span id="videoEstSize">Auto Size</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Big Radiant Download Button -->
+                <div class="download-action-container">
+                    <button type="button" id="downloadBtn" class="main-download-button disabled" disabled>
+                        <div class="btn-shine"></div>
+                        <div class="btn-inner">
+                            <svg class="dl-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span id="downloadBtnText" class="button-label">Download Video</span>
+                        </div>
+                    </button>
+                    <p class="download-disclaimer">By downloading, you agree that this tool is intended for personal and
+                        educational use.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Supported Platforms Section -->
+        <section id="platforms" class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Supported Social Media Platforms</h2>
+                <p class="section-desc">Download videos and audio seamlessly from over 1,000+ websites and services</p>
+            </div>
+
+            <div class="platforms-grid">
+                <div class="platform-card platform-yt">
+                    <div class="p-icon yt-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg>
+                    </div>
+                    <h3>YouTube</h3>
+                    <p>4K, 1080p, Shorts & Playlists</p>
+                </div>
+
+                <div class="platform-card platform-fb">
+                    <div class="p-icon fb-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </div>
+                    <h3>Facebook</h3>
+                    <p>Watch, Reels & Feed Videos in HD</p>
+                </div>
+
+                <div class="platform-card platform-ig">
+                    <div class="p-icon ig-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </div>
+                    <h3>Instagram</h3>
+                    <p>Reels, Stories, Posts & IGTV</p>
+                </div>
+
+                <div class="platform-card platform-tt">
+                    <div class="p-icon tt-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 2.89 3.5 2.77 1.81-.02 3.25-1.51 3.31-3.32.06-2.58.02-5.17.03-7.76V.02z" />
+                        </svg>
+                    </div>
+                    <h3>TikTok</h3>
+                    <p>Watermark-free Full HD Videos</p>
+                </div>
+
+                <div class="platform-card platform-x">
+                    <div class="p-icon x-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                    </div>
+                    <h3>X / Twitter</h3>
+                    <p>High bitrate video clips & GIFs</p>
+                </div>
+
+                <div class="platform-card platform-rd">
+                    <div class="p-icon rd-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.56 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.702zM8.94 11.233c-.702 0-1.272.57-1.272 1.273s.57 1.273 1.272 1.273c.703 0 1.273-.57 1.273-1.273s-.57-1.273-1.273-1.273zm6.12 0c-.703 0-1.273.57-1.273 1.273s.57 1.273 1.273 1.273c.702 0 1.272-.57 1.272-1.273s-.57-1.273-1.272-1.273zm-3.06 3.428a2.535 2.535 0 0 0-2.222 1.232.228.228 0 0 0 .077.311.233.233 0 0 0 .313-.075c.379-.58.98-.916 1.832-.916.853 0 1.453.336 1.832.916a.235.235 0 0 0 .313.075.228.228 0 0 0 .077-.311 2.535 2.535 0 0 0-2.222-1.232z" />
+                        </svg>
+                    </div>
+                    <h3>Reddit</h3>
+                    <p>Complete video and audio merged</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Grid Section -->
+        <section id="features" class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose VideoFetcher?</h2>
+                <p class="section-desc">Engineered for speed, uncompressed quality, and seamless usability</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="f-icon">⚡</div>
+                    <h3>Instant Auto-Analysis</h3>
+                    <p>Just paste any link into the search bar. Our engine immediately decodes stream availability and
+                        format metadata without any extra click.</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="f-icon">🎞️</div>
+                    <h3>Up to 4K Ultra HD</h3>
+                    <p>Enjoy master-grade resolutions including 4K (2160p), 2K (1440p), and Full HD (1080p) merged
+                        seamlessly using native FFmpeg technology.</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="f-icon">🎵</div>
+                    <h3>Studio MP3 Audio Extraction</h3>
+                    <p>Convert music videos, podcasts, and sound bites into crisp 320 kbps High Quality MP3 audio files
+                        directly.</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="f-icon">💾</div>
+                    <h3>Direct Device Downloads</h3>
+                    <p>Files are streamed straight to your browser, triggering instant native downloads to your local
+                        device folder.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">How It Works in 3 Simple Steps</h2>
+                <p class="section-desc">Download your favorite social media videos in seconds</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-num">01</div>
+                    <h3>Copy & Paste Link</h3>
+                    <p>Copy the link of any video from YouTube, Instagram, Facebook, TikTok, or other sites and paste it
+                        into the search box.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-num">02</div>
+                    <h3>Select Format & Quality</h3>
+                    <p>Choose between MP4 Video (up to 4K) or MP3 Audio and pick your preferred resolution stream.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-num">03</div>
+                    <h3>Hit Download</h3>
+                    <p>Click the Download button. The engine handles the stream processing and saves the file directly
+                        to your device.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="brand-icon small">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                    </svg>
+                </div>
+                <span>VideoFetcher</span>
+            </div>
+            <p class="copyright">© 2026 VideoFetcher. All rights reserved. Free and unlimited social media downloader
+                for personal use.</p>
+        </div>
+    </footer>
+
+    <!-- Download Progress Modal -->
+    <div id="progressModal" class="modal-backdrop hidden">
+        <div class="modal-window animate-modal-pop">
+            <div class="modal-top">
+                <div class="modal-status-heading">
+                    <div class="pulse-loader"></div>
+                    <span id="modalHeaderTitle">Processing & Downloading Media</span>
+                </div>
+                <button id="closeModalBtn" class="close-x-btn" title="Close">✕</button>
+            </div>
+
+            <div class="modal-content">
+                <div class="progress-details-top">
+                    <span id="progressMessage" class="status-msg">Initializing download engine...</span>
+                    <span id="progressPercent" class="percent-tag">0%</span>
+                </div>
+
+                <!-- Animated Progress Bar -->
+                <div class="bar-track">
+                    <div id="progressBarFill" class="bar-fill" style="width: 0%;"></div>
+                </div>
+
+                <!-- Live Metrics -->
+                <div class="metrics-grid">
+                    <div class="metric-block">
+                        <span class="m-label">Speed</span>
+                        <span id="statSpeed" class="m-val">0 KB/s</span>
+                    </div>
+                    <div class="metric-block">
+                        <span class="m-label">ETA</span>
+                        <span id="statEta" class="m-val">--</span>
+                    </div>
+                    <div class="metric-block">
+                        <span class="m-label">Downloaded / Total</span>
+                        <span id="statSize" class="m-val">--</span>
+                    </div>
+                </div>
+
+                <div id="downloadCompleteActions" class="completion-box hidden">
+                    <a id="directDownloadLink" href="#" class="save-file-btn" download>
+                        📥 Save to Device (Direct Link)
+                    </a>
+                    <button id="downloadAnotherBtn" class="another-btn">
+                        Download Another Video
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Drawer / Modal -->
+    <div id="historyModal" class="modal-backdrop hidden">
+        <div class="modal-window history-window animate-modal-pop">
+            <div class="modal-top">
+                <div class="modal-status-heading">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hist-icon">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span>Recent Download History</span>
+                </div>
+                <button id="closeHistoryBtn" class="close-x-btn">✕</button>
+            </div>
+            <div class="modal-content history-content-area">
+                <div id="historyList" class="history-items-container">
+                    <p class="empty-notice">No downloads recorded yet.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast-popup hidden"></div>
+
+    <script src="app.js?v=3.3"></script>
+</body>
+
+</html>
